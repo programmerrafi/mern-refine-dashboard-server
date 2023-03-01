@@ -103,9 +103,7 @@ const updateProperty = async (req, res) => {
     const { id } = req.params;
     const { title, description, propertyType, location, price, photo } =
       req.body;
-
     const photoUrl = await cloudinary.uploader.upload(photo);
-
     await Property.findByIdAndUpdate(
       { _id: id },
       {
@@ -117,7 +115,6 @@ const updateProperty = async (req, res) => {
         photo: photoUrl.url || photo,
       }
     );
-
     res.status(200).json({ message: "Property updated successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
